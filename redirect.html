@@ -14,11 +14,13 @@
       p.append('Signed in. You can now close this tab.');
 
       document.body.append(p);
+
+      const hash = document.location.hash.slice(1);
       
       // https://stackoverflow.com/a/18804255
       window.addEventListener("message", function(ev) {
         if (ev.data.message === "requestResult") {
-          ev.source.postMessage({ message: "deliverResult", result: document.location.hash.slice(1) }, {
+          ev.source.postMessage({ message: "deliverResult", result: hash }, {
             targetOrigin: '*'
           });
         }
