@@ -8,21 +8,18 @@
   </head>
   <body>
     <script>
-      // @ts-check
-
       const p = document.createElement('h2');
-      p.append('Signed in. You can now close this tab.');
+      p.append('Signed in. Copy and paste this into the popup in Obsidian:');
 
+      const pre = document.createElement('pre');
+      pre.append(document.location.hash.slice(1));
       document.body.append(p);
-      
-      (/** @type {typeof window.postMessage} */ (window.opener.postMessage))(document.location.hash.slice(1), '*')
+      document.body.append(pre);
       
       // this is optional, but after retrieving the parameters, we should ideally
       // scrub it from history to prevent this authorization state to be replayed,
       // just for good measure.
       history.replaceState(null, '', location.pathname + location.search);
-
-      setTimeout(() => window.close(), 1000);
     </script>
   </body>
 </html>
